@@ -1,18 +1,37 @@
 public class Solution { 
     public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
-        int [] freq = new int[n+1];
+	// Brute Force
+        // int [] freq = new int[n+1];
+        // for(int i=0; i<n; i++) {
+        //     freq[arr.get(i)]++;
+        // }
+        // int [] ans = new int[2];
+        // for(int i=1; i<freq.length; i++) {
+        //     if(freq[i] > 1) {
+        //         ans[1] = i;
+        //     } else if (freq[i] == 0) {
+        //         ans[0] = i;
+        //     }
+        // }
+        // return ans;
+        
+        
+        // Optimal Approach
+        int[] ans = new int[2];
         for(int i=0; i<n; i++) {
-            freq[arr.get(i)]++;
-        }
-        int [] ans = new int[2];
-        for(int i=1; i<freq.length; i++) {
-            if(freq[i] > 1) {
-                ans[1] = i;
-            } else if (freq[i] == 0) {
-                ans[0] = i;
+            int abs_value = Math.abs(arr.get(i));
+            if(arr.get(abs_value-1)>0) {
+                arr.set(abs_value-1, -arr.get(abs_value-1));
+            } else {
+                ans[1] = abs_value;
             }
         }
-        return ans;
+        for(int i=0; i<n; i++) {
+            if(arr.get(i) > 0) {
+                ans[0] = i+1;
+            }
+        }
+        return ans;        
     }
 
 }
